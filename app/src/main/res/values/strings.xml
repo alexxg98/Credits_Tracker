@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">CSC Credits Tracker</string>
+    <string name="title_taken">Taken</string>
+    <string name="title_need">Still Needed</string>
+    <string name="title_overview">Overview</string>
+    <string name="header_qpa">QPA</string>
+    <string name="header_inProgress">In Progress</string>
+    <string name="header_untaken">Untaken</string>
+
+    <string name="credits1">Credits: 1</string>
+    <string name="credits3">Credits: 3</string>
+    <string name="credits4">Credits: 4</string>
+    <string name="termInput">Term Taken: </string>
+    <string name="gradeInput">Grade Received: </string>
+    <string name="course_103">CSC 10300 \n Introduction to Computing for Majors</string>
+    <string name="course_104">CSC 10400 \n Discrete Mathematical Structures</string>
+    <string name="course_113">CSC 11300 \n Programming Language</string>
+    <string name="course_211">CSC 21100 \n Fundamentals of Computer Systems</string>
+    <string name="course_212">CSC 21200 \n Data Structures</string>
+    <string name="course_217">CSC 21700 \n Probability and Statistics for Computer Science</string>
+    <string name="course_220">CSC 22000 \n Algorithms</string>
+    <string name="course_221">CSC 22100 \n Software Design Laboratory</string>
+    <string name="course_301">CSC 30100 \n Numerical Issues in Scientific Programming</string>
+    <string name="course_304">CSC 30400 \n Introduction to Theoretical Computer Science</string>
+    <string name="course_322">CSC 32200 \n Software Engineering</string>
+    <string name="course_332">CSC 33200 \n Operating Systems</string>
+    <string name="course_335">CSC 33500 \n Programming Language Paradigms</string>
+    <string name="course_336">CSC 33600 \n Introduction to Database Systems</string>
+    <string name="course_342">CSC 34200 \n Computer Organization</string>
+    <string name="course_343">CSC 34300 \n Computer Systems Design Laboratory</string>
+
+    <string name="title_activity_course_popup">course_popup</string>
+</resources>

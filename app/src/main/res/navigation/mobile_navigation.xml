@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_taken">
+
+    <fragment
+        android:id="@+id/navigation_taken"
+        android:name="com.example.credits_tracker.ui.home.HomeFragment"
+        android:label="@string/title_taken"
+        tools:layout="@layout/fragment_taken" />
+
+    <fragment
+        android:id="@+id/navigation_need"
+        android:name="com.example.credits_tracker.ui.need.NeedFragment"
+        android:label="@string/title_need"
+        tools:layout="@layout/fragment_need" />
+
+    <fragment
+        android:id="@+id/navigation_overview"
+        android:name="com.example.credits_tracker.ui.notifications.OverviewFragment"
+        android:label="@string/title_overview"
+        tools:layout="@layout/fragment_overview" />
+</navigation>
