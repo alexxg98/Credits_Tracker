@@ -6,12 +6,21 @@ import java.io.Serializable;
 
 public class Courses implements Serializable {
     private String term, grade;
+    private int type;
 
     public Courses(String term, String grade) {
+//        this.type = type;
         this.term = term;
         this.grade = grade;
 
     }
+
+//    public int getType() {
+//        return type;
+//    }
+//    public void setType(int type) {
+//        this.type = type;
+//    }
 
     public String getTerm() {
         return term;
@@ -30,6 +39,6 @@ public class Courses implements Serializable {
     @NonNull
     @Override
     public String toString() {
-        return term + " " + grade;
+        return type + " " + term + " " + grade;
     }
 }

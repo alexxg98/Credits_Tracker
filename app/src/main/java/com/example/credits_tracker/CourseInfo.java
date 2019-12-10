@@ -2,8 +2,6 @@ package com.example.credits_tracker;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -17,30 +15,55 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import java.io.FileOutputStream;
-import java.io.ObjectOutputStream;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 public class CourseInfo extends AppCompatActivity {
 
     private RadioButton taken, inProgress, untaken;
+    private RadioGroup statusRadioGroup;
     private ImageButton closeBtn;
     private Button saveBtn;
     private TextView termInput, gradeInput;
     ArrayList<Courses> courseList;
 
+    //default radiobutton checked: untaken
+    public static int selectedButton = 2;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_popup);
-        taken = (RadioButton)findViewById(R.id.radioBtn_Taken);
+        taken = (RadioButton)findViewById(R.id.radioBtn_taken);
         inProgress = (RadioButton)findViewById(R.id.radioBtn_inProgress);
         untaken = (RadioButton)findViewById(R.id.radioBtn_untaken);
+        statusRadioGroup = (RadioGroup)findViewById(R.id.radioGroup_status);
         termInput = (TextView)findViewById(R.id.input_term);
         gradeInput = (TextView)findViewById(R.id.input_grade);
 
         loadData();
+
+        //load previous radiobutton state
+        if (selectedButton == 0){
+            taken.setChecked(true);
+        }
+        else if (selectedButton ==1){
+            inProgress.setChecked(true);
+        }
+        else if (selectedButton==2){
+            untaken.setChecked(true);
+        }
+
+        statusRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                RadioButton rb = (RadioButton)group.findViewById(checkedId);
+                if (null != rb && checkedId > -1){
+                    Toast.makeText(getApplicationContext(), rb.getText(), Toast.LENGTH_SHORT).show();
+
+                }
+            }
+        });
         
         saveBtn = (Button)findViewById(R.id.saveBtn);
         saveBtn.setOnClickListener(new View.OnClickListener() {
@@ -48,9 +71,11 @@ public class CourseInfo extends AppCompatActivity {
             public void onClick(View v) {
                 String term = termInput.getText().toString().toUpperCase();
                 String grade = gradeInput.getText().toString().toUpperCase();
+//                int type = statusRadioGroup.getCheckedRadioButtonId();
+//                System.out.println(type);
                 Courses c103 = new Courses(term, grade);
                 courseList.set(0,c103);
-                String test = courseList.get(2).toString();
+                String test = courseList.get(0).toString();
                 Toast.makeText(getApplicationContext(),test, Toast.LENGTH_SHORT).show();
                 saveData();
             }
@@ -84,6 +109,7 @@ public class CourseInfo extends AppCompatActivity {
         if (courseList == null){
             courseList = new ArrayList<>();
         }
+
     }
 
 
@@ -93,15 +119,18 @@ public class CourseInfo extends AppCompatActivity {
 
         String test = "";
         switch (view.getId()){
-            case R.id.radioBtn_Taken:
+            case R.id.radioBtn_taken:
                 if (checked)
                     test = "Taken Selected";
                     termInput.setEnabled(true);
                     termInput.setFocusable(true);
                     gradeInput.setEnabled(true);
                     gradeInput.setFocusable(true);
-                    termInput.setText(courseList.get(0).getTerm());
-                    gradeInput.setText(courseList.get(0).getGrade());
+                    selectedButton = 0;
+                    if (!courseList.isEmpty()){
+                        termInput.setText(courseList.get(0).getTerm());
+                        gradeInput.setText(courseList.get(0).getGrade());
+                    }
                     break;
             case R.id.radioBtn_inProgress:
                 if (checked)
@@ -110,6 +139,7 @@ public class CourseInfo extends AppCompatActivity {
                     termInput.setFocusable(false);
                     gradeInput.setEnabled(false);
                     gradeInput.setFocusable(false);
+                    selectedButton = 1;
                     termInput.setText("In Progress");
                     gradeInput.setText("NA");
                     break;
@@ -120,6 +150,7 @@ public class CourseInfo extends AppCompatActivity {
                     termInput.setFocusable(false);
                     gradeInput.setEnabled(false);
                     gradeInput.setFocusable(false);
+                    selectedButton = 2;
                     termInput.setText("NA");
                     gradeInput.setText("NA");
                     break;
