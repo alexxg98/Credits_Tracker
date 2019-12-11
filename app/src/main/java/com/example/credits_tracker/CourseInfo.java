@@ -25,7 +25,7 @@ public class CourseInfo extends AppCompatActivity {
     private ImageButton closeBtn;
     private Button saveBtn;
     private TextView termInput, gradeInput;
-    ArrayList<Courses> courseList;
+    private static ArrayList<Courses> courseList;
 
     //default radiobutton checked: untaken
     public static int selectedButton;
@@ -152,5 +152,7 @@ public class CourseInfo extends AppCompatActivity {
         }
     }
 
-
+    public static ArrayList<Courses> getCourseList() {
+        return courseList;
+    }
 }
