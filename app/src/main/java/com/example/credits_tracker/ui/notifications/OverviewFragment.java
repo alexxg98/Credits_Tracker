@@ -29,10 +29,10 @@ public class OverviewFragment extends Fragment{
     private EditText displayQPA;
 //    private ArrayList<Courses> coursesList;
     public int points;
-    private Character grade103, grade104;
-    private int qpaTotal = 0, qpa103, qpa104;
+    private int qpaTotal = 0;
 
     ArrayList<Courses> courseList;
+    ArrayList<Character> courseGrades;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -47,7 +47,7 @@ public class OverviewFragment extends Fragment{
             }
         });
 
-
+        courseGrades = new ArrayList<>();
         displayQPA = (EditText)root.findViewById(R.id.qpaDisplay);
         courseList = CourseList.getCourseList();
         
@@ -56,13 +56,21 @@ public class OverviewFragment extends Fragment{
         }
         else {
             //Calculate the QPA
-            grade103 = courseList.get(0).getGrade().charAt(0);
-            grade104 = courseList.get(1).getGrade().charAt(0);
-            qpa103 = convertGrade(grade103, 3);
-            qpa104 = convertGrade(grade104, 3);
-            qpaTotal = qpa103 + qpa104;
+            int i = 0;
+            while (i< courseList.size()){
+                if (CourseList.coursePassed(i)){
+                    Character g = courseList.get(i).getGrade().charAt(0);
+                    System.out.println(g);
+                    courseGrades.add(g);
+                }
+                i++;
+            }
+            for (Character c : courseGrades){
+                qpaTotal += convertGrade(c, 3);
+                System.out.println(qpaTotal);
+            }
             displayQPA.setText("" + qpaTotal);
-//        System.out.println(qpaTotal + " qpa " + qpa103);
+
         }
         return root;
     }
@@ -84,6 +92,6 @@ public class OverviewFragment extends Fragment{
                 points = -2*credits;
                 break;
         }
-        return qpaTotal + points;
+        return points;
     }
 }

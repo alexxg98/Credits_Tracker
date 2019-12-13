@@ -29,7 +29,7 @@ public class Info104 extends AppCompatActivity {
     ArrayList<Courses> course104;
 
     //default radiobutton checked: untaken
-    public static int selectedButton = 2;
+    public static int selectedButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,7 +101,7 @@ public class Info104 extends AppCompatActivity {
         //load previous radiobutton state
         if (selectedButton == 0){
             taken.setChecked(true);
-            if (!course104.isEmpty()){
+            if (!course104.isEmpty() && course104.size()>=2){
                 selectionGroup.takenSelect(termInput, gradeInput);
                 termInput.setText(course104.get(1).getTerm());
                 gradeInput.setText(course104.get(1).getGrade());
@@ -127,7 +127,7 @@ public class Info104 extends AppCompatActivity {
                 if (checked)
                     selectionGroup.takenSelect(termInput, gradeInput);
                 selectedButton = 0;
-                if (!course104.isEmpty()){
+                if (!course104.isEmpty() && course104.size()>=2){
                     termInput.setText(course104.get(1).getTerm());
                     gradeInput.setText(course104.get(1).getGrade());
                 }
