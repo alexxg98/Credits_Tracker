@@ -29,7 +29,7 @@ public class Info104 extends AppCompatActivity {
     ArrayList<Courses> course104;
 
     //default radiobutton checked: untaken
-    public static int selectedButton;
+    public static int selectedButton = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,8 +38,8 @@ public class Info104 extends AppCompatActivity {
 
         courseList = new CourseList();
         course104 = courseList.getCourseList();
-        System.out.println(course104.get(0).toString());
-        System.out.println(course104.get(1).toString());
+//        System.out.println(course104.get(0).toString());
+//        System.out.println(course104.get(1).toString());
 
         taken = (RadioButton)findViewById(R.id.radioBtn_taken);
         inProgress = (RadioButton)findViewById(R.id.radioBtn_inProgress);
@@ -58,12 +58,12 @@ public class Info104 extends AppCompatActivity {
                 String grade = gradeInput.getText().toString().toUpperCase();
                 Courses c104 = new Courses(term, grade);
 
-                if (course104.isEmpty()) {
-                    course104.add(1, c104);
+                if (course104.isEmpty() || course104.size()<2) {
+                    course104.add(c104);
                 }
                 course104.set(1,c104);
-                String test = course104.get(1).toString();
-                Toast.makeText(getApplicationContext(),test, Toast.LENGTH_SHORT).show();
+//                String test = course104.get(1).toString();
+//                Toast.makeText(getApplicationContext(),test, Toast.LENGTH_SHORT).show();
                 saveData();
 
                 courseList.setCourseList(course104);

@@ -54,16 +54,16 @@ public class OverviewFragment extends Fragment{
         if (courseList.isEmpty()) {
             displayQPA.setText("No Courses Taken Yet!");
         }
-
-        //Calculate the QPA
-        grade103 = courseList.get(0).getGrade().charAt(0);
-        grade104 = courseList.get(1).getGrade().charAt(0);
-        qpa103 = convertGrade(grade103, 3);
-        qpa104 = convertGrade(grade104, 3);
-        qpaTotal = qpa103+qpa104;
-        displayQPA.setText("" + qpaTotal);
+        else {
+            //Calculate the QPA
+            grade103 = courseList.get(0).getGrade().charAt(0);
+            grade104 = courseList.get(1).getGrade().charAt(0);
+            qpa103 = convertGrade(grade103, 3);
+            qpa104 = convertGrade(grade104, 3);
+            qpaTotal = qpa103 + qpa104;
+            displayQPA.setText("" + qpaTotal);
 //        System.out.println(qpaTotal + " qpa " + qpa103);
-
+        }
         return root;
     }
     public int convertGrade(Character grade, int credits){

@@ -31,7 +31,7 @@ public class Info103 extends AppCompatActivity {
     ArrayList<Courses> course103;
 
     //default radiobutton checked: untaken
-    public static int selectedButton;
+    public static int selectedButton = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,20 +48,6 @@ public class Info103 extends AppCompatActivity {
         gradeInput = (TextView)findViewById(R.id.input_grade);
 
         loadData();
-
-
-//        statusRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(RadioGroup group, int checkedId) {
-//                RadioButton rb = (RadioButton)group.findViewById(checkedId);
-        //        int type = statusRadioGroup.getCheckedRadioButtonId();
-        //        System.out.println(type);
-//                if (null != rb && checkedId > -1){
-//                    Toast.makeText(getApplicationContext(), rb.getText(), Toast.LENGTH_SHORT).show();
-//
-//                }
-//            }
-//        });
         
         saveBtn = (Button)findViewById(R.id.saveBtn);
         saveBtn.setOnClickListener(new View.OnClickListener() {
@@ -71,12 +57,12 @@ public class Info103 extends AppCompatActivity {
                 String grade = gradeInput.getText().toString().toUpperCase();
                 Courses c103 = new Courses(term, grade);
 
-                if (!course103.isEmpty()) {
-                    course103.set(0,c103);
-                    String test = course103.get(0).toString();
-                    Toast.makeText(getApplicationContext(),test, Toast.LENGTH_SHORT).show();
+                if (course103.isEmpty()) {
+                    course103.add(c103);
                 }
-                course103.add(0, c103);
+                course103.set(0,c103);
+                String test = course103.get(0).toString();
+                Toast.makeText(getApplicationContext(),test, Toast.LENGTH_SHORT).show();
                 saveData();
 
                 courseList.setCourseList(course103);

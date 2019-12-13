@@ -43,12 +43,13 @@ public class NeedFragment extends Fragment{
             }
         });
 
+        //Change card color if course passed
         if (!courseList.isEmpty()) {
-            if (courseList.get(0) != null) {
+            if (coursePassed(0)) {
                 csc103.setCardBackgroundColor(Color.rgb(50, 205, 50));
 //            System.out.println("Works");
             }
-            if (courseList.get(1) != null) {
+            if (coursePassed(1)) {
                 csc104.setCardBackgroundColor(Color.rgb(50, 205, 50));
             }
         }
@@ -59,5 +60,12 @@ public class NeedFragment extends Fragment{
         return view;
     }
 
-
+    public boolean coursePassed(int index){
+        boolean status = false;
+        Character course = courseList.get(index).getGrade().charAt(0);
+        if (course == 'A' || course =='B' || course =='C'){
+            status = true;
+        }
+        return status;
+    }
 }
