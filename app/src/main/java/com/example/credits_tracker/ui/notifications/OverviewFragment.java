@@ -50,10 +50,7 @@ public class OverviewFragment extends Fragment{
 
         displayQPA = (EditText)root.findViewById(R.id.qpaDisplay);
         courseList = CourseList.getCourseList();
-
-        String test = courseList.get(0).toString();
-        Toast.makeText(getActivity(),test, Toast.LENGTH_SHORT).show();
-
+        
         if (courseList.isEmpty()) {
             displayQPA.setText("No Courses Taken Yet!");
         }
