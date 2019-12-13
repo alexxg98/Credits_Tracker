@@ -14,21 +14,25 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
-import com.example.credits_tracker.CourseInfo;
+import com.example.credits_tracker.CourseList;
 import com.example.credits_tracker.Courses;
 import com.example.credits_tracker.R;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class OverviewFragment extends Fragment{
 
     private NotificationsViewModel overviewViewModel;
 
     private EditText displayQPA;
-    private ArrayList<Courses> coursesList;
+//    private ArrayList<Courses> coursesList;
     public int points;
-    private Character grade103;
-    private int qpaTotal = 0, qpa103;
+    private Character grade103, grade104;
+    private int qpaTotal = 0, qpa103, qpa104;
+
+    ArrayList<Courses> courseList;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -45,15 +49,23 @@ public class OverviewFragment extends Fragment{
 
 
         displayQPA = (EditText)root.findViewById(R.id.qpaDisplay);
-        coursesList = CourseInfo.getCourseList();
-        if (!coursesList.isEmpty()) {
-            grade103 = coursesList.get(0).getGrade().charAt(0);
-            qpa103 = convertGrade(grade103, 3);
-            displayQPA.setText("" + qpa103);
+        courseList = CourseList.getCourseList();
+
+        String test = courseList.get(0).toString();
+        Toast.makeText(getActivity(),test, Toast.LENGTH_SHORT).show();
+
+        if (courseList.isEmpty()) {
+            displayQPA.setText("No Courses Taken Yet!");
         }
-        else {
-            displayQPA.setText("0");
-        }
+
+        //Calculate the QPA
+        grade103 = courseList.get(0).getGrade().charAt(0);
+        grade104 = courseList.get(1).getGrade().charAt(0);
+        qpa103 = convertGrade(grade103, 3);
+        qpa104 = convertGrade(grade104, 3);
+        qpaTotal = qpa103+qpa104;
+        displayQPA.setText("" + qpaTotal);
+//        System.out.println(qpaTotal + " qpa " + qpa103);
 
         return root;
     }

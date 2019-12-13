@@ -2,9 +2,8 @@ package com.example.credits_tracker;
 
 import androidx.annotation.NonNull;
 
-import java.io.Serializable;
 
-public class Courses implements Serializable {
+public class Courses{
     private String term, grade;
     private int type;
 
@@ -39,6 +38,6 @@ public class Courses implements Serializable {
     @NonNull
     @Override
     public String toString() {
-        return type + " " + term + " " + grade;
+        return term + " " + grade;
     }
 }

@@ -12,20 +12,23 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.credits_tracker.ui.need.NeedFragment;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
-public class CourseInfo extends AppCompatActivity {
+public class Info103 extends AppCompatActivity {
 
     private RadioButton taken, inProgress, untaken;
     private RadioGroup statusRadioGroup;
     private ImageButton closeBtn;
     private Button saveBtn;
     private TextView termInput, gradeInput;
-    private static ArrayList<Courses> courseList;
+
+    CourseList courseList;
+    ArrayList<Courses> course103;
 
     //default radiobutton checked: untaken
     public static int selectedButton;
@@ -33,8 +36,10 @@ public class CourseInfo extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_info103);
 
-        setContentView(R.layout.activity_course_popup);
+        courseList = new CourseList();
+        course103 = courseList.getCourseList();
         taken = (RadioButton)findViewById(R.id.radioBtn_taken);
         inProgress = (RadioButton)findViewById(R.id.radioBtn_inProgress);
         untaken = (RadioButton)findViewById(R.id.radioBtn_untaken);
@@ -66,13 +71,15 @@ public class CourseInfo extends AppCompatActivity {
                 String grade = gradeInput.getText().toString().toUpperCase();
                 Courses c103 = new Courses(term, grade);
 
-                if (courseList.isEmpty()) {
-                    courseList.add(0, c103);
+                if (!course103.isEmpty()) {
+                    course103.set(0,c103);
+                    String test = course103.get(0).toString();
+                    Toast.makeText(getApplicationContext(),test, Toast.LENGTH_SHORT).show();
                 }
-                courseList.set(0,c103);
-                String test = courseList.get(0).toString();
-                Toast.makeText(getApplicationContext(),test, Toast.LENGTH_SHORT).show();
+                course103.add(0, c103);
                 saveData();
+
+                courseList.setCourseList(course103);
             }
         });
 
@@ -90,7 +97,7 @@ public class CourseInfo extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         Gson gson = new Gson();
-        String json = gson.toJson(courseList);
+        String json = gson.toJson(course103);
         editor.putString("task list", json);
         editor.apply();
     }
@@ -100,19 +107,20 @@ public class CourseInfo extends AppCompatActivity {
         Gson gson = new Gson();
         String json = sharedPreferences.getString("task list", null);
         Type type = new TypeToken<ArrayList<Courses>>() {}.getType();
-        courseList = gson.fromJson(json, type);
+        course103 = gson.fromJson(json, type);
 
-        if (courseList == null){
-            courseList = new ArrayList<>();
+        if (course103 == null){
+            course103 = new ArrayList<>();
         }
 
         //load previous radiobutton state
         if (selectedButton == 0){
             taken.setChecked(true);
-            if (!courseList.isEmpty()){
+            if (!course103.isEmpty()){
                 selectionGroup.takenSelect(termInput, gradeInput);
-                termInput.setText(courseList.get(0).getTerm());
-                gradeInput.setText(courseList.get(0).getGrade());
+                termInput.setText(course103.get(0).getTerm());
+                gradeInput.setText(course103.get(0).getGrade());
+
             }
         }
         else if (selectedButton ==1){
@@ -134,9 +142,9 @@ public class CourseInfo extends AppCompatActivity {
                 if (checked)
                     selectionGroup.takenSelect(termInput, gradeInput);
                     selectedButton = 0;
-                    if (!courseList.isEmpty()){
-                        termInput.setText(courseList.get(0).getTerm());
-                        gradeInput.setText(courseList.get(0).getGrade());
+                    if (!course103.isEmpty()){
+                        termInput.setText(course103.get(0).getTerm());
+                        gradeInput.setText(course103.get(0).getGrade());
                     }
                     break;
             case R.id.radioBtn_inProgress:
@@ -152,7 +160,5 @@ public class CourseInfo extends AppCompatActivity {
         }
     }
 
-    public static ArrayList<Courses> getCourseList() {
-        return courseList;
-    }
+
 }
