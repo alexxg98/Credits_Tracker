@@ -66,8 +66,7 @@ public class OverviewFragment extends Fragment{
                 i++;
             }
             for (Character c : courseGrades){
-                qpaTotal += convertGrade(c, 3);
-                System.out.println(qpaTotal);
+                qpaTotal += convertGrade(c, 3);//need to update
             }
             displayQPA.setText("" + qpaTotal);
 

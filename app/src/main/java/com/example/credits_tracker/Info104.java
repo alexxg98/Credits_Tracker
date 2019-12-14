@@ -38,12 +38,11 @@ public class Info104 extends AppCompatActivity {
 
         courseList = new CourseList();
         course104 = courseList.getCourseList();
-//        System.out.println(course104.get(0).toString());
-//        System.out.println(course104.get(1).toString());
 
         taken = (RadioButton)findViewById(R.id.radioBtn_taken);
         inProgress = (RadioButton)findViewById(R.id.radioBtn_inProgress);
         untaken = (RadioButton)findViewById(R.id.radioBtn_untaken);
+        untaken.setChecked(true);
         statusRadioGroup = (RadioGroup)findViewById(R.id.radioGroup_status);
         termInput = (TextView)findViewById(R.id.input_term);
         gradeInput = (TextView)findViewById(R.id.input_grade);
